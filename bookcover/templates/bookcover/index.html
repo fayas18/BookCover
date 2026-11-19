@@ -1,0 +1,916 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>The Django Wizard's Handbook</title>
+
+<style>
+
+/* =========================
+   GENERAL SETTINGS
+========================= */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    background: #100b19;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    padding: 35px 15px;
+    font-family: Georgia, serif;
+}
+
+
+/* =========================
+   BOOK COVER
+========================= */
+
+.book-cover {
+    width: 470px;
+    min-height: 790px;
+
+    padding: 25px;
+
+    background:
+        radial-gradient(
+            circle at top,
+            #54203d,
+            #200f28 65%,
+            #120b1a
+        );
+
+    border: 7px double #d6aa54;
+    outline: 2px solid #9e7135;
+    outline-offset: 5px;
+
+    box-shadow:
+        0 20px 60px black,
+        inset 0 0 30px #8e572b;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+
+    text-align: center;
+    color: #f5d68c;
+
+    position: relative;
+    overflow: hidden;
+}
+
+
+/* =========================
+   DECORATIVE STARS
+========================= */
+
+.star {
+    position: absolute;
+    color: #ffdf83;
+    font-size: 22px;
+
+    animation: glow 2s infinite alternate;
+}
+
+.star1 {
+    top: 160px;
+    left: 35px;
+}
+
+.star2 {
+    top: 260px;
+    right: 35px;
+}
+
+.star3 {
+    top: 490px;
+    left: 45px;
+}
+
+.star4 {
+    top: 550px;
+    right: 45px;
+}
+
+@keyframes glow {
+
+    from {
+        opacity: 0.3;
+        text-shadow: 0 0 5px gold;
+    }
+
+    to {
+        opacity: 1;
+        text-shadow: 0 0 25px gold;
+    }
+}
+
+
+/* =========================
+   TOP HEADING
+========================= */
+
+.top {
+    width: 100%;
+
+    padding: 10px;
+
+    font-size: 14px;
+    letter-spacing: 4px;
+
+    color: #f5d58d;
+
+    border-bottom: 1px solid #c69a4c;
+}
+
+
+/* =========================
+   MAIN TITLE
+========================= */
+
+.heading {
+    margin-top: 15px;
+}
+
+.heading h1 {
+    font-size: 37px;
+    line-height: 1.3;
+
+    color: #ffe09b;
+
+    text-shadow:
+        2px 3px 3px black,
+        0 0 15px #d89b35;
+}
+
+.heading p {
+    margin-top: 12px;
+
+    font-size: 14px;
+    letter-spacing: 4px;
+
+    color: #e8bf72;
+}
+
+
+/* =========================
+   MAGICAL SKY
+========================= */
+
+.castle-scene {
+
+    width: 100%;
+    height: 245px;
+
+    position: relative;
+    overflow: hidden;
+
+    background:
+        radial-gradient(
+            circle at 82% 20%,
+            #fce6a6 0%,
+            #d5a66d 5%,
+            transparent 6%
+        ),
+        linear-gradient(
+            to bottom,
+            #15152e,
+            #30264b,
+            #66415d
+        );
+
+    border-radius: 110px 110px 12px 12px;
+
+    box-shadow:
+        inset 0 0 35px #090817;
+}
+
+
+/* MOON */
+
+.moon {
+    position: absolute;
+
+    top: 22px;
+    right: 40px;
+
+    width: 43px;
+    height: 43px;
+
+    background: #fff0b9;
+    border-radius: 50%;
+
+    box-shadow: 0 0 25px #ffe4a1;
+}
+
+
+/* SKY STARS */
+
+.sky-stars {
+    position: absolute;
+    top: 15px;
+    left: 30px;
+
+    color: #ffe39c;
+    font-size: 15px;
+
+    letter-spacing: 15px;
+}
+
+
+/* MOUNTAINS */
+
+.mountain {
+    position: absolute;
+    bottom: 0;
+
+    width: 0;
+    height: 0;
+
+    border-left: 95px solid transparent;
+    border-right: 95px solid transparent;
+    border-bottom: 105px solid #211b35;
+}
+
+.mountain1 {
+    left: -30px;
+}
+
+.mountain2 {
+    right: -35px;
+    border-bottom-color: #292039;
+    border-bottom-width: 130px;
+}
+
+
+/* =========================
+   CASTLE STRUCTURE
+========================= */
+
+.castle {
+
+    position: absolute;
+
+    bottom: 18px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: 320px;
+    height: 165px;
+
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+
+    filter: drop-shadow(0 0 10px #e4a34f);
+}
+
+
+/* MAIN CASTLE BUILDING */
+
+.main-building {
+
+    width: 155px;
+    height: 90px;
+
+    background: linear-gradient(
+        90deg,
+        #594052,
+        #b68a70,
+        #654354
+    );
+
+    border: 2px solid #e8c17b;
+
+    position: relative;
+    z-index: 3;
+}
+
+
+/* CENTRAL TOWER */
+
+.central-tower {
+
+    position: absolute;
+
+    bottom: 88px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: 48px;
+    height: 85px;
+
+    background: linear-gradient(
+        90deg,
+        #654b5c,
+        #d5aa76,
+        #674a58
+    );
+
+    border: 2px solid #eac987;
+}
+
+
+/* TOWER ROOFS */
+
+.roof {
+
+    position: absolute;
+
+    width: 0;
+    height: 0;
+
+    border-left: 27px solid transparent;
+    border-right: 27px solid transparent;
+    border-bottom: 43px solid #c38b50;
+}
+
+.central-roof {
+
+    bottom: 168px;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    border-left-width: 28px;
+    border-right-width: 28px;
+    border-bottom-width: 45px;
+}
+
+
+/* SIDE TOWERS */
+
+.side-tower {
+
+    position: absolute;
+    bottom: 35px;
+
+    width: 38px;
+    height: 110px;
+
+    background: linear-gradient(
+        90deg,
+        #61485a,
+        #c69b70,
+        #61485a
+    );
+
+    border: 2px solid #eac987;
+}
+
+.left-tower {
+    left: 15px;
+}
+
+.right-tower {
+    right: 15px;
+}
+
+
+/* SIDE TOWER ROOFS */
+
+.side-roof {
+
+    position: absolute;
+    bottom: 145px;
+
+    width: 0;
+    height: 0;
+
+    border-left: 22px solid transparent;
+    border-right: 22px solid transparent;
+    border-bottom: 38px solid #d59a53;
+}
+
+.left-roof {
+    left: 12px;
+}
+
+.right-roof {
+    right: 12px;
+}
+
+
+/* SMALL TOWERS */
+
+.small-tower {
+
+    position: absolute;
+    bottom: 65px;
+
+    width: 25px;
+    height: 75px;
+
+    background: linear-gradient(
+        90deg,
+        #63445b,
+        #d5a56f,
+        #63445b
+    );
+
+    border: 1px solid #f1d08b;
+}
+
+.small-left {
+    left: 65px;
+}
+
+.small-right {
+    right: 65px;
+}
+
+
+/* SMALL ROOFS */
+
+.small-roof {
+
+    position: absolute;
+    bottom: 140px;
+
+    width: 0;
+    height: 0;
+
+    border-left: 15px solid transparent;
+    border-right: 15px solid transparent;
+    border-bottom: 30px solid #c9874c;
+}
+
+.small-left-roof {
+    left: 63px;
+}
+
+.small-right-roof {
+    right: 63px;
+}
+
+
+/* CASTLE WINDOWS */
+
+.window {
+
+    position: absolute;
+
+    width: 9px;
+    height: 17px;
+
+    background: #ffdc72;
+
+    box-shadow: 0 0 12px #ffcc55;
+}
+
+.w1 {
+    left: 20px;
+    top: 25px;
+}
+
+.w2 {
+    left: 68px;
+    top: 25px;
+}
+
+.w3 {
+    right: 68px;
+    top: 25px;
+}
+
+.w4 {
+    right: 20px;
+    top: 25px;
+}
+
+.w5 {
+    left: 45px;
+    top: 62px;
+}
+
+.w6 {
+    right: 45px;
+    top: 62px;
+}
+
+.w7 {
+    left: 17px;
+    top: 35px;
+}
+
+.w8 {
+    right: 17px;
+    top: 35px;
+}
+
+
+/* CASTLE ENTRANCE */
+
+.entrance {
+
+    position: absolute;
+
+    bottom: 0;
+    left: 50%;
+
+    transform: translateX(-50%);
+
+    width: 26px;
+    height: 40px;
+
+    background: #24123a;
+
+    border: 2px solid #e9bb6a;
+
+    border-radius: 15px 15px 0 0;
+
+    box-shadow: 0 0 15px #b78aff;
+}
+
+
+/* CASTLE GROUND */
+
+.castle-ground {
+
+    position: absolute;
+
+    bottom: 0;
+
+    width: 100%;
+    height: 17px;
+
+    background: linear-gradient(
+        #8b624e,
+        #302036
+    );
+}
+
+
+/* =========================
+   MAGICAL EFFECT
+========================= */
+
+.magic {
+
+    font-size: 28px;
+    letter-spacing: 10px;
+
+    padding: 5px;
+
+    text-shadow: 0 0 15px gold;
+}
+
+
+/* =========================
+   MAGICAL BOOK
+========================= */
+
+.book {
+
+    width: 220px;
+    height: 65px;
+
+    background: linear-gradient(
+        #ffe3a0,
+        #c28b4b,
+        #8e572c
+    );
+
+    border: 3px solid #f4cf7b;
+
+    border-radius: 50% 50% 8px 8px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    color: #421a28;
+
+    font-size: 20px;
+    font-weight: bold;
+
+    box-shadow:
+        0 0 25px #e5a94e;
+
+    transform: perspective(200px) rotateX(8deg);
+}
+
+
+/* =========================
+   SUBJECT GRID
+========================= */
+
+.subjects {
+
+    width: 100%;
+
+    display: grid;
+
+    grid-template-columns: repeat(2, 1fr);
+
+    gap: 12px;
+
+    margin: 12px 0;
+}
+
+.subjects a {
+
+    display: block;
+
+    padding: 12px;
+
+    border: 1px solid #d5a64c;
+
+    background: #321426;
+
+    color: #f7d58a;
+
+    font-size: 14px;
+    letter-spacing: 2px;
+
+    text-decoration: none;
+
+    transition: 0.4s;
+
+    border-radius: 5px;
+}
+
+.subjects a:hover {
+
+    background: #d5a64c;
+
+    color: #321426;
+
+    transform: scale(1.08);
+
+    box-shadow: 0 0 15px gold;
+}
+
+
+/* =========================
+   SUBTITLE
+========================= */
+
+.subtitle {
+
+    font-size: 16px;
+
+    line-height: 1.6;
+
+    font-style: italic;
+
+    color: #f3d49a;
+
+    padding: 5px;
+}
+
+
+/* =========================
+   AUTHOR
+========================= */
+
+.author {
+
+    width: 100%;
+
+    padding: 15px;
+
+    border-top: 2px solid #d5a64c;
+
+    font-size: 17px;
+
+    letter-spacing: 4px;
+
+    color: #ffdc8c;
+
+    font-weight: bold;
+}
+
+
+/* =========================
+   RESPONSIVE DESIGN
+========================= */
+
+@media (max-width: 500px) {
+
+    .book-cover {
+
+        width: 100%;
+
+        min-height: 760px;
+
+        padding: 18px;
+    }
+
+    .heading h1 {
+        font-size: 29px;
+    }
+
+    .top {
+        font-size: 11px;
+    }
+
+    .castle {
+        transform: translateX(-50%) scale(0.9);
+    }
+
+}
+
+</style>
+
+</head>
+
+<body>
+
+
+<!-- =========================
+     MAIN BOOK COVER
+========================= -->
+
+<div class="book-cover">
+
+
+    <!-- STARS -->
+
+    <div class="star star1">✦</div>
+    <div class="star star2">✧</div>
+    <div class="star star3">✦</div>
+    <div class="star star4">✧</div>
+
+
+    <!-- TOP -->
+
+    <div class="top">
+        ✦ A DJANGO ADVENTURE ✦
+    </div>
+
+
+    <!-- TITLE -->
+
+    <div class="heading">
+
+        <h1>The Django</h1>
+
+        <h1>Wizard's Handbook</h1>
+
+        <p>BUILD • DESIGN • DEPLOY</p>
+
+    </div>
+
+
+    <!-- MAGICAL CASTLE -->
+
+    <div class="castle-scene">
+
+        <div class="moon"></div>
+
+        <div class="sky-stars">
+            ✦　✧　✦　✧
+        </div>
+
+        <div class="mountain mountain1"></div>
+        <div class="mountain mountain2"></div>
+
+
+        <div class="castle">
+
+
+            <!-- SIDE TOWERS -->
+
+            <div class="side-tower left-tower"></div>
+            <div class="side-tower right-tower"></div>
+
+
+            <!-- SIDE ROOFS -->
+
+            <div class="side-roof left-roof"></div>
+            <div class="side-roof right-roof"></div>
+
+
+            <!-- SMALL TOWERS -->
+
+            <div class="small-tower small-left"></div>
+            <div class="small-tower small-right"></div>
+
+
+            <!-- SMALL ROOFS -->
+
+            <div class="small-roof small-left-roof"></div>
+            <div class="small-roof small-right-roof"></div>
+
+
+            <!-- MAIN BUILDING -->
+
+            <div class="main-building">
+
+                <div class="window w1"></div>
+                <div class="window w2"></div>
+                <div class="window w3"></div>
+                <div class="window w4"></div>
+
+                <div class="window w5"></div>
+                <div class="window w6"></div>
+
+                <div class="entrance"></div>
+
+            </div>
+
+
+            <!-- CENTRAL TOWER -->
+
+            <div class="central-tower"></div>
+
+            <div class="roof central-roof"></div>
+
+
+            <!-- TOWER WINDOWS -->
+
+            <div class="window w7"></div>
+            <div class="window w8"></div>
+
+
+            <!-- GROUND -->
+
+            <div class="castle-ground"></div>
+
+        </div>
+
+    </div>
+
+
+    <!-- MAGIC -->
+
+    <div class="magic">
+        ✨ 🪄 ✨
+    </div>
+
+
+    <!-- DJANGO BOOK -->
+
+    <div class="book">
+        DJANGO
+    </div>
+
+
+    <!-- INTERACTIVE SUBJECT BUTTONS -->
+
+    <div class="subjects">
+
+        <a href="https://developer.mozilla.org/en-US/docs/Web/HTML"
+           target="_blank">
+            HTML
+        </a>
+
+        <a href="https://developer.mozilla.org/en-US/docs/Web/CSS"
+           target="_blank">
+            CSS
+        </a>
+
+        <a href="https://docs.python.org/3/tutorial/"
+           target="_blank">
+            PYTHON
+        </a>
+
+        <a href="https://docs.djangoproject.com/en/stable/intro/tutorial01/"
+           target="_blank">
+            DJANGO
+        </a>
+
+    </div>
+
+
+    <!-- SUBTITLE -->
+
+    <div class="subtitle">
+
+        A Magical Journey into
+
+        <br>
+
+        Web Development
+
+    </div>
+
+
+    <!-- AUTHOR -->
+
+    <div class="author">
+
+        ✦ BY FAYAS GANI ✦
+
+    </div>
+
+
+</div>
+
+</body>
+</html>
